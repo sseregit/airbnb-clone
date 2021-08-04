@@ -1,15 +1,17 @@
-from datetime import datetime
+from math import ceil
 from django.shortcuts import render
+from django.core.paginator import Paginator
+from . import models
 
 
 def all_rooms(request):
-    now = datetime.now()
-    hungry = False
+    page = request.GET.get("page")
+    room_list = models.Room.objects.all()
+    paginator = Paginator(room_list, 10)
+    rooms = paginator.get_page(page)
+    print(vars(rooms))
     return render(
         request,
-        "all_rooms.html",
-        context={
-            "now": now,
-            "hungry": hungry,
-        },
+        "rooms/all_rooms.html",
+        context={"rooms": rooms},
     )
