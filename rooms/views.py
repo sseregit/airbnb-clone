@@ -1,17 +1,13 @@
-from math import ceil
-from django.shortcuts import render
-from django.core.paginator import Paginator
+from django.views.generic import ListView
 from . import models
 
 
-def all_rooms(request):
-    page = request.GET.get("page")
-    room_list = models.Room.objects.all()
-    paginator = Paginator(room_list, 10)
-    rooms = paginator.get_page(page)
-    print(vars(rooms))
-    return render(
-        request,
-        "rooms/all_rooms.html",
-        context={"rooms": rooms},
-    )
+class HomeView(ListView):
+
+    """HomeView Definition"""
+
+    model = models.Room
+    paginate_by = 10
+    ordering = "created"
+    paginate_orphans = 5
+    context_object_name = "rooms"
