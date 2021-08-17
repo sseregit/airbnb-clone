@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block page_title %}
+    Log In
+{% endblock page_title %}
+    
+{% block search-bar %}
+{% endblock %}
+
+{% block content %}
+    <form action="{% url "users:login"%}" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button>Login</button>
+    </form>
+{% endblock content %}
+    
