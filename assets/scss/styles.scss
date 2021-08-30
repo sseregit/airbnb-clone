@@ -12,4 +12,58 @@
   }
 }
 
+.btn {
+  @apply w-full font-light text-lg text-center rounded-sm py-5;
+}
+
+input {
+  @apply w-full font-light text-lg rounded-sm py-5 text-left border border-gray-600 px-5 focus:outline-none focus:border-green-500;
+}
+
+form {
+  .input {
+    @apply mb-3 w-full;
+    &.has_error {
+      input {
+        @apply bg-red-200 border-gray-600 focus:border-gray-600;
+      }
+    }
+  }
+}
+
+@keyframes messageFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  5% {
+    opacity: 1;
+    transform: translateY(50px);
+  }
+  95% {
+    opacity: 1;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+
+.message {
+  animation: messageFadeIn 5s ease-in-out forwards;
+  &.error {
+    @apply bg-red-600;
+  }
+  &.info {
+    @apply bg-blue-500;
+  }
+  &.success {
+    @apply bg-green-500;
+  }
+  &.warning {
+    @apply bg-yellow-400;
+  }
+}
+
 @tailwind utilities;
