@@ -48,4 +48,5 @@ class CustomUserAdmin(UserAdmin):
         "email_verified",
         "email_secret",
         "login_method",
+        "get_room_count",
     )

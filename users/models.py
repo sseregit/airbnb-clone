@@ -85,3 +85,7 @@ class User(AbstractUser):
             )
             self.save()
         return
+
+    def get_room_count(self):
+        room_count = self.rooms.count()
+        return room_count
