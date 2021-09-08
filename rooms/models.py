@@ -2,6 +2,7 @@ import os
 from django.db import models
 from django.urls import reverse
 from django_countries.fields import CountryField
+from django.utils import timezone
 from core import models as core_models
 from cal import Calendar
 
@@ -131,6 +132,12 @@ class Room(core_models.TimeStampedModel):
         return photos
 
     def get_calendars(self):
-        this_calendar = Calendar(2019, 11)
-        next_calendar = Calendar(2019, 12)
+        now = timezone.now()
+        month = now.month
+        year = now.year
+        this_calendar = Calendar(year, month)
+        next_calendar = Calendar(
+            year + 1 if month == 12 else year,
+            month + 1 if 12 >= month + 1 else 1,
+        )
         return [this_calendar, next_calendar]
