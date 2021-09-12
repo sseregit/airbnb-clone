@@ -9,6 +9,10 @@ class ReservationAdmin(admin.ModelAdmin):
 
     """Reservation Admin Definition"""
 
+    search_fields = [
+        "room__name",
+    ]
+
     list_display = (
         "room",
         "status",
@@ -24,4 +28,8 @@ class ReservationAdmin(admin.ModelAdmin):
 
 @admin.register(models.BookedDay)
 class BookedDayAdmin(admin.ModelAdmin):
-    pass
+
+    list_display = (
+        "day",
+        "reservation",
+    )

@@ -3,6 +3,7 @@ from datetime import time
 from django.db import models
 from django.utils import timezone
 from core import models as core_models
+from . import managers
 
 # Create your models here.
 
@@ -17,6 +18,9 @@ class BookedDay(models.Model):
     class Meta:
         verbose_name = "Booked Day"
         verbose_name_plural = "Booked Days"
+
+    def __str__(self):
+        return f"{self.day}"
 
 
 class Reservation(core_models.TimeStampedModel):
@@ -44,6 +48,7 @@ class Reservation(core_models.TimeStampedModel):
     room = models.ForeignKey(
         "rooms.Room", related_name="reservations", on_delete=models.CASCADE
     )
+    objects = managers.CustomReviewManagers()
 
     def __str__(self):
         return f"{self.room}"
@@ -56,7 +61,10 @@ class Reservation(core_models.TimeStampedModel):
 
     def is_finished(self):
         now = timezone.now().date()
-        return now > self.check_out
+        is_finished = now > self.check_out
+        if is_finished:
+            BookedDay.objects.filter(reservation=self).delete()
+        return is_finished
 
     is_finished.boolean = True
 
@@ -74,4 +82,4 @@ class Reservation(core_models.TimeStampedModel):
                     day = start + datetime.timedelta(days=i)
                     BookedDay.objects.create(day=day, reservation=self)
                 return
-            return super().save(*args, **kwargs)
+        return super().save(*args, **kwargs)
