@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, reverse
+from django.contrib import messages
 from rooms import models as room_models
 from . import forms
 
@@ -10,4 +11,9 @@ def create_review(request, room):
         if not room:
             return redirect(reverse("core:hoome"))
         if form.is_valid():
-            pass
+            review = form.save()
+            review.room = room
+            review.user = request.user
+            review.save()
+            messages.success(request, "Room reviewed")
+            return redirect(reverse("rooms:detail", kwargs={"pk": room.pk}))
