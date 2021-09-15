@@ -7,9 +7,10 @@
         <span>&copy; 2021 Airbnb-clone, Inc. </span>
     </div>
     <div class="mt-10 flex">
-        <select class="w-1/5">
-            <option value="en">English</option>
-            <option value="ko">Korean</option>
+        {% get_current_language as LANGUAGE_CODE %}
+        <select class="w-1/5" id="js-lang">
+            <option value="en" {% if LANGUAGE_CODE == 'en'%} selected {% endif %}>English</option>
+            <option value="ko" {% if LANGUAGE_CODE == 'ko'%} selected {% endif %}>Korean</option>
         </select>
     </div>
 </footer>
