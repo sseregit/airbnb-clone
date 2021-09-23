@@ -22,7 +22,7 @@ class HomeView(ListView):
     context_object_name = "rooms"
 
 
-class RoomDetail(DetailView):
+class RoomDetail(user_mixins.loggedInOnlyView, DetailView):
 
     """RoomDetail Definition"""
 
