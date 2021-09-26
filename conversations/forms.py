@@ -3,4 +3,9 @@ from django import forms
 
 class AddCommentForm(forms.Form):
 
-    message = forms.CharField(required=True)
+    message = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={"placeholder": "Add a Commnet", "class": "box-border mb-5"}
+        ),
+    )
