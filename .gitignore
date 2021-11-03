@@ -141,7 +141,6 @@ uploads/
 
 node_modules/
 # Elastic Beanstalk Files
-.ebextensions
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
