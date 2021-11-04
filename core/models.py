@@ -6,8 +6,8 @@ class TimeStampedModel(models.Model):
 
     """Time Stamped Model"""
 
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(null=True,blank=True,auto_now_add=True)
+    updated = models.DateTimeField(null=True,blank=True,auto_now=True)
     objects = managers.CustomModelManagers()
 
     class Meta:
