@@ -11,8 +11,8 @@ class BookedDay(models.Model):
 
     day = models.DateField()
     reservation = models.ForeignKey("Reservation", on_delete=models.CASCADE)
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
+    created = models.DateField(null=True,blank=True,auto_now_add=True)
+    updated = models.DateField(null=True,blank=True,auto_now=True)
 
     class Meta:
         verbose_name = "Booked Day"
