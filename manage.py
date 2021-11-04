@@ -3,6 +3,7 @@
 import os
 import sys
 import dotenv
+from django.conf import settings
 
 
 def main():
@@ -19,5 +20,6 @@ def main():
 
 
 if __name__ == "__main__":
-    dotenv.read_dotenv()
+    if settings.DEBUG:
+        dotenv.read_dotenv()
     main()
