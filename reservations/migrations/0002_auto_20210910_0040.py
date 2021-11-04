@@ -13,11 +13,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='bookedday',
             name='created',
-            field=models.DateField(null=True,blank=True,default=''),
+            field=models.DateField(null=True,blank=True),
         ),
         migrations.AlterField(
             model_name='bookedday',
             name='updated',
-            field=models.DateField(null=True,blank=True,default=''),
+            field=models.DateField(null=True,blank=True),
         ),
     ]
