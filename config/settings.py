@@ -27,8 +27,6 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = bool(os.environ.get("DEBUG"))
 
-# DEBUG = True
-
 ALLOWED_HOSTS = [".elasticbeanstalk.com","127.0.0.1"]
 
 
@@ -43,7 +41,7 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = ["django_countries", "django_seed"]
+THIRD_PARTY_APPS = ["django_countries", "django_seed", "storages"]
 
 PROJECT_APPS = [
     "core.apps.CoreConfig",
@@ -150,6 +148,8 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
+STATIC_ROOT = os.path.join(BASE_DIR,"static")
+
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 AUTH_USER_MODEL = "users.User"
@@ -179,8 +179,16 @@ LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
 LANGUAGE_COOKIE_NAME = "django_language"
 
 # Sentry
-
 if not DEBUG:
+    DEFAULT_FILE_STORAGE = 'config.custom_storages.UploadStorage'
+    STATICFILES_STORAGE = 'config.custom_storages.StaticStorage'
+    AWS_S3_ACCESS_KEY_ID = os.environ.get("AWS_S3_ACCESS_KEY_ID")
+    AWS_S3_SECRET_ACCESS_KEY = os.environ.get("AWS_S3_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = "airbnbclonejang"
+    AWS_S3_OBJECT_PARAMETERS = {"CacheControl":"max-age=86400"}
+    AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.ap-northeast-2.amazonaws.com"
+    STATIC_URL = f"https:://{AWS_S3_CUSTOM_DOMAIN}/static/"
+
     sentry_sdk.init(
         dsn=os.environ.get("SENTRY_URL"),
         integrations=[DjangoIntegration()],
