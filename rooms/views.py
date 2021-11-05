@@ -31,10 +31,9 @@ class RoomDetail(user_mixins.loggedInOnlyView, DetailView):
 
 class SearchView(View):
     def get(self, request):
-        country = request.GET.get("country")
+        city = request.GET.get("city")
 
-        if country:
-
+        if city:
             form = forms.SearchForm(request.GET)
             if form.is_valid():
                 city = form.cleaned_data.get("city")

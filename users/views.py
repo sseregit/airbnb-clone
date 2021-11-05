@@ -51,7 +51,7 @@ class SignUpview(mixins.LoggedOutOnlyView, FormView):
 
     def form_valid(self, form):
         form.save()
-        email = form.cleaned_data.get("username")
+        email = form.cleaned_data.get("email")
         password = form.cleaned_data.get("password")
         user = authenticate(
             self.request,
@@ -59,7 +59,8 @@ class SignUpview(mixins.LoggedOutOnlyView, FormView):
             password=password,
         )
         if user is not None:
-            user.verify_email()
+            # mailgun issue
+            # user.verify_email()
             login(self.request, user)
         else:
             user = models.User.objects.get(username=email)
