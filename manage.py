@@ -8,6 +8,8 @@ from django.conf import settings
 
 def main():
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+    if settings.DEBUG:
+        dotenv.read_dotenv()
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -20,6 +22,4 @@ def main():
 
 
 if __name__ == "__main__":
-    if settings.DEBUG:
-        dotenv.read_dotenv()
     main()
